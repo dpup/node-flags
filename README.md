@@ -78,4 +78,5 @@ If you want to change flags between test cases, you may call:
  * Support --flagsfile
  * Handle --help and --helpshort internally
  * Support space separated flags, e.g. --flagname flagvalue
+ * Set up for npm install
 
