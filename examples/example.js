@@ -13,8 +13,8 @@ var flags = require('flags');
 flags.defineString('name', 'Billy Noone', 'Your name');
 flags.defineInteger('age', 21, 'Your age in whole years');
 flags.defineNumber('height', 1.80, 'Your height in meters');
-flags.defineStringList('pets', []);
-flags.defineMultiString('hobby', []);
+flags.defineStringList('pets', [], 'Comma separated list of your pets');
+flags.defineMultiString('hobby', [], 'A hobby');
 
 flags.parse();
 
@@ -28,3 +28,6 @@ info.push('Pets : ' + flags.get('pets').join(', '));
 info.push('Hobbies : \n  ' + flags.get('hobby').join('\n  '));
 
 console.log(info.join('\n'));
+
+console.log('\nHelp Text:');
+flags.help();
