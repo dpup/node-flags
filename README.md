@@ -25,6 +25,11 @@ This is a flags library for use with [node.js](http://nodejs.org/).  Flag defini
 
     console.log(info.join('\n'));
 
+Then on the command line:
+
+    node example.js --name='Your Name' --age 43  --height=1.234 --pets=fred,bob --hobby biking --hobby=snowboarding
+
+    
 
 ## Defining Flags
 
@@ -77,6 +82,6 @@ If you want to change flags between test cases, you may call:
 
  * Support --flagsfile
  * Handle --help and --helpshort internally
- * Support space separated flags, e.g. --flagname flagvalue
+ * Support multi space separated flags, e.g. --files file1 file2 file3
  * Set up for npm install
 
