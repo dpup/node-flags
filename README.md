@@ -37,7 +37,7 @@ To define flags, use one of the defineX functions exported by the `flags` module
 
 **flags.defineString** - Takes the raw input from the command line.
 
-**flags.defineBoolean** - Usually doesn't take a value, passing --flag will set the corresponding flag to true.  Also supported are --noflag to set it to false. Also --flag=true or --flag=false or --flag=0 or --flag=1 or --flag=f or --flag=t 
+**flags.defineBoolean** - Usually doesn't take a value, passing --flag will set the corresponding flag to true.  Also supported are --noflag to set it to false and --flag=true or --flag=false or --flag=0 or --flag=1 or --flag=f or --flag=t 
 
 **flags.defineInteger** - Must take a value and will be cast to a Number.  Passing a non-integer arg will throw.
 
