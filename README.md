@@ -29,6 +29,11 @@ Then on the command line:
 
     node example.js --name='Your Name' --age 43  --height=1.234 --pets=fred,bob --hobby biking --hobby=snowboarding
 
+## Passing Flags
+
+ * Flag names should be prefixed with two dashes: e.g. `--flagname`
+ * Values can be separated from the name with either an equal sign or a space: e.g. `--flagname=flagvalue` or `--flagname flagvalue`
+ * Additional non-flag arguments can be passed by adding `--` before the subsequent args.  The remaining args will be returned from `flags.parse()` as an array, e.g. `--one --two -- other stuff here`
 
 ## Defining Flags
 
