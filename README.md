@@ -29,7 +29,6 @@ Then on the command line:
 
     node example.js --name='Your Name' --age 43  --height=1.234 --pets=fred,bob --hobby biking --hobby=snowboarding
 
-    
 
 ## Defining Flags
 
@@ -50,12 +49,13 @@ To define flags, use one of the defineX functions exported by the `flags` module
 
 All the define methods take the same arguments:
 
-    flags.defineX(name, defaultValue, opt_description, opt_validator);
+    flags.defineX(name, defaultValue, opt_description, opt_validator, opt_isSecret);
 
     name - The flag's name
     defaultValue - The default value if not specified on the command line
     description - [optional] Description to show in the help text
     validator - [optional] Function for validating the input, should throw if the input isn't valid.
+    isSecret - [optional] Whether the flag shold be omitted from the help text.
 
 ## Querying Flag Values
 
@@ -81,7 +81,6 @@ If you want to change flags between test cases, you may call:
 ## TODOs
 
  * Support --flagsfile
- * Handle --help and --helpshort internally
  * Support multi space separated flags, e.g. --files file1 file2 file3
  * Set up for npm install
 
