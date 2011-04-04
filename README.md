@@ -110,5 +110,4 @@ If you want to change flags between test cases, you may call:
 
  * Support --flagsfile
  * Support multi space separated flags, e.g. --files file1 file2 file3
- * Set up for npm install
 
