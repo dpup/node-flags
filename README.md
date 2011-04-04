@@ -57,16 +57,16 @@ All the define methods take the same arguments:
 
     flags.defineX(name, opt_default, opt_description);
 
-    name - The flag's name
-    opt_default - [optional] The default value if not specified on the command line
-    opt_description - [optional] Description to show in the help text
+`name` - The flag's name.  
+`opt_default` - [optional] The default value if not specified on the command line.  
+`opt_description` - [optional] Description to show in the help text.
 
 The methods return a Flag object that exposes the following methods, for additional configuration:
 
-    .setDefault({*} defaultValue) - Sets the flag's default value.
-    .setDescription({string} description) - Sets the flag's description field.
-    .setValidator({function(string)} validator) - Sets a function for validating the input, should throw if the input isn't valid.
-    .setSecret({boolean} secret) - If set to true then the flag won't show up in the help text.
+`flag.setDefault({*} defaultValue)` - Sets the flag's default value.  
+`flag.setDescription({string} description)` - Sets the flag's description field.  
+`flag.setValidator({function(string)} validator)` - Sets a function for validating the input, should throw if the input isn't valid.  
+`flag.setSecret({boolean} secret)` - If set to true then the flag won't show up in the help text.  
 
 These setters return the flag instance so they can be chained:
 
