@@ -2,6 +2,12 @@
 
 This is a flags library for use with [node.js](http://nodejs.org/).  Flag definitions can be distributed across multiple files, as long as they are defined before `flags.parse()` is called.
 
+## Installation
+
+Fork the latest source from github, or else use NPM:
+
+    npm install flags
+
 ## Example
 
     var flags = require('flags');
@@ -104,5 +110,4 @@ If you want to change flags between test cases, you may call:
 
  * Support --flagsfile
  * Support multi space separated flags, e.g. --files file1 file2 file3
- * Set up for npm install
 
