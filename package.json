@@ -1,6 +1,6 @@
 {
   "name" : "flags",
-  "version" : "0.1",
+  "version" : "0.1.0",
   "description" : "Flag library for node.js",
   "keywords" : ["flag", "args", "command line"],
   "repository" : {
@@ -13,5 +13,6 @@
     "email" : "dan@pupi.us",
     "url" : "http://pupius.co.uk"
   },
-  "main" : "./lib/flags.js"
+  "main" : "./lib/flags.js",
+  "directories": {"lib": "./lib"}
 }

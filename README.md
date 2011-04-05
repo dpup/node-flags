@@ -2,6 +2,12 @@
 
 This is a flags library for use with [node.js](http://nodejs.org/).  Flag definitions can be distributed across multiple files, as long as they are defined before `flags.parse()` is called.
 
+## Installation
+
+Fork the latest source from github, or else use NPM:
+
+    npm install flags
+
 ## Example
 
     var flags = require('flags');
@@ -55,13 +61,29 @@ To define flags, use one of the defineX functions exported by the `flags` module
 
 All the define methods take the same arguments:
 
-    flags.defineX(name, defaultValue, opt_description, opt_validator, opt_isSecret);
+    flags.defineX(name, opt_default, opt_description);
 
-    name - The flag's name
-    defaultValue - The default value if not specified on the command line
-    description - [optional] Description to show in the help text
-    validator - [optional] Function for validating the input, should throw if the input isn't valid.
-    isSecret - [optional] Whether the flag shold be omitted from the help text.
+`name` - The flag's name.  
+`opt_default` - [optional] The default value if not specified on the command line.  
+`opt_description` - [optional] Description to show in the help text.
+
+The methods return a Flag object that exposes the following methods, for additional configuration:
+
+`flag.setDefault({*} defaultValue)` - Sets the flag's default value.  
+`flag.setDescription({string} description)` - Sets the flag's description field.  
+`flag.setValidator({function(string)} validator)` - Sets a function for validating the input, should throw if the input isn't valid.  
+`flag.setSecret({boolean} secret)` - If set to true then the flag won't show up in the help text.  
+
+These setters return the flag instance so they can be chained:
+
+    flags.defineString('test').
+        setDefault('empty').
+        setDescription('A test flag').
+        setValidator(function(inp) {
+          if (inp.substr(0, 1) != 'e') {
+            throw Error('Flag must start with an "e"');
+          }
+        });
 
 ## Querying Flag Values
 
@@ -88,5 +110,4 @@ If you want to change flags between test cases, you may call:
 
  * Support --flagsfile
  * Support multi space separated flags, e.g. --files file1 file2 file3
- * Set up for npm install
 
