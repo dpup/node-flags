@@ -1,3 +1,4 @@
+[![build status](https://secure.travis-ci.org/dpup/node-flags.png)](http://travis-ci.org/dpup/node-flags)
 # Node-Flags
 
 This is a flags library for use with [node.js](http://nodejs.org/).  Flag definitions can be distributed across multiple files, as long as they are defined before `flags.parse()` is called.
