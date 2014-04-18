@@ -1,6 +1,6 @@
 {
   "name" : "flags",
-  "version" : "0.1.0",
+  "version" : "0.1.1",
   "description" : "Flag library for node.js",
   "keywords" : ["flag", "args", "command line"],
   "repository" : {
