@@ -40,7 +40,7 @@ Then on the command line:
  * Flag names should be prefixed with two dashes: e.g. `--flagname`
  * Values can be separated from the name with either an equal sign or a space: e.g. `--flagname=flagvalue` or `--flagname flagvalue`
  * Complex string flags should be quoted: e.g. `--flag="some flag with spaces"`
- * Additional non-flag arguments can be passed by adding `--` before the subsequent args.  The remaining args will be returned from `flags.parse()` as an array, e.g. `--one --two -- other stuff here`
+ * Any arguments which are not recognised as flags will be returned from parse() in an array. Adding `--` on the command line stops flag processing and returns all the rest of the arguments.  e.g. `--flag1 --flag2 arg1 -- --arg2 --arg3` will return an array of `['arg1', '--arg2', '--arg3']` assuming `flag1` and `flag2` are defined flags.
 
 ## Defining Flags
 
