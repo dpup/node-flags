@@ -1,16 +1,16 @@
 # Node-Flags
 
-This is a flags library for use with [node.js](http://nodejs.org/).  Flag definitions can be distributed across multiple files, as long as they are defined before `flags.parse()` is called.
+This is a flags library for use with [node.js](http://nodejs.org/). Flag definitions can be distributed across multiple files, as long as they are defined before `flags.parse()` is called.
 
 ## Installation
 
-Fork the latest source from github, or else use NPM:
+Fork the latest source from github, or else use your favorite package manager:
 
-    npm install flags
+    pnpm install flags
 
 ## Example
 
-    var flags = require('flags');
+    import * as flags from 'flags';
 
     flags.defineString('name', 'Billy Noone', 'Your name');
     flags.defineInteger('age', 21, 'Your age in whole years');
@@ -37,10 +37,10 @@ Then on the command line:
 
 ## Passing Flags
 
- * Flag names should be prefixed with two dashes: e.g. `--flagname`
- * Values can be separated from the name with either an equal sign or a space: e.g. `--flagname=flagvalue` or `--flagname flagvalue`
- * Complex string flags should be quoted: e.g. `--flag="some flag with spaces"`
- * Additional non-flag arguments can be passed by adding `--` before the subsequent args.  The remaining args will be returned from `flags.parse()` as an array, e.g. `--one --two -- other stuff here`
+- Flag names should be prefixed with two dashes: e.g. `--flagname`
+- Values can be separated from the name with either an equal sign or a space: e.g. `--flagname=flagvalue` or `--flagname flagvalue`
+- Complex string flags should be quoted: e.g. `--flag="some flag with spaces"`
+- Additional non-flag arguments can be passed by adding `--` before the subsequent args. The remaining args will be returned from `flags.parse()` as an array, e.g. `--one --two -- other stuff here`
 
 ## Defining Flags
 
@@ -48,16 +48,15 @@ To define flags, use one of the defineX functions exported by the `flags` module
 
 **flags.defineString** - Takes the raw input from the command line.
 
-**flags.defineBoolean** - Usually doesn't take a value, passing --flag will set the corresponding flag to true.  Also supported are --noflag to set it to false and --flag=true or --flag=false or --flag=0 or --flag=1 or --flag=f or --flag=t 
+**flags.defineBoolean** - Usually doesn't take a value, passing --flag will set the corresponding flag to true. Also supported are --noflag to set it to false and --flag=true or --flag=false or --flag=0 or --flag=1 or --flag=f or --flag=t
 
-**flags.defineInteger** - Must take a value and will be cast to a Number.  Passing a non-integer arg will throw.
+**flags.defineInteger** - Must take a value and will be cast to a Number. Passing a non-integer arg will throw.
 
-**flags.defineNumber** - Must take a value and will be cast to a number.  Passing an arg that evaluates to NaN will throw.
+**flags.defineNumber** - Must take a value and will be cast to a number. Passing an arg that evaluates to NaN will throw.
 
 **flags.defineStringList** - Takes a comma separated argument list and returns an array as it's value.
 
-**flags.defineMultiString** - Same as defineString but allows multiple flags to be passed.  All values will be returned in an array.
-
+**flags.defineMultiString** - Same as defineString but allows multiple flags to be passed. All values will be returned in an array.
 
 All the define methods take the same arguments:
 
@@ -72,7 +71,7 @@ The methods return a Flag object that exposes the following methods, for additio
 `flag.setDefault({*} defaultValue)` - Sets the flag's default value.  
 `flag.setDescription({string} description)` - Sets the flag's description field.  
 `flag.setValidator({function(string)} validator)` - Sets a function for validating the input, should throw if the input isn't valid.  
-`flag.setSecret({boolean} secret)` - If set to true then the flag won't show up in the help text.  
+`flag.setSecret({boolean} secret)` - If set to true then the flag won't show up in the help text.
 
 These setters return the flag instance so they can be chained:
 
@@ -98,7 +97,7 @@ The flag object also contains the following properties you may be interested in:
 
 ## Testing
 
-By default `flags.parse` uses process.argv and slices off the first 2 elements.  For tests you can pass a predefined set of arguments as an array:
+By default `flags.parse` uses process.argv and slices off the first 2 elements. For tests you can pass a predefined set of arguments as an array:
 
     flags.parse(['--flag', '--nofood', '--foo=bar']);
 
@@ -108,8 +107,8 @@ If you want to change flags between test cases, you may call:
 
 ## TODOs
 
- * Support --flagsfile
- * Support multi space separated flags, e.g. --files file1 file2 file3
+- Support --flagsfile
+- Support multi space separated flags, e.g. --files file1 file2 file3
 
 ## Licence
 
