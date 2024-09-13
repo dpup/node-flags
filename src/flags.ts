@@ -304,21 +304,25 @@ class Flag<T> implements IFlag<T> {
     this.isSet = false;
   }
 
+  // Set a default value.
   setDefault(defaultValue: T): this {
     this.defaultValue = defaultValue;
     return this;
   }
 
+  /** Set a description for use in the help message. */
   setDescription(description: string): this {
     this.description = description;
     return this;
   }
 
+  /** Set a custom validator. */
   setValidator(validator: (input: T | null) => boolean): this {
     this.validator = validator;
     return this;
   }
 
+  /** Hide this flag from the help message. */
   setSecret(isSecret: boolean): this {
     this.isSecret = isSecret;
     return this;

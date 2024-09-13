@@ -1,123 +1,122 @@
 # Node-Flags
 
-This is a flags library for use with [node.js](http://nodejs.org/). Flag definitions can be distributed across multiple files, as long as they are defined before `flags.parse()` is called.
+A flexible and easy-to-use command-line flag parsing library for Node.js applications.
+
+[![npm version](https://badge.fury.io/js/flags.svg)](https://badge.fury.io/js/flags)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
+## Features
+
+- Define flags across multiple files
+- Support for various data types (string, boolean, integer, number, string list, multi-string)
+- Easy-to-use API for defining and accessing flags
+- Customizable flag validation
+- Built-in help text generation
 
 ## Installation
 
-Fork the latest source from github, or else use your favorite package manager:
+Install using your favorite package manager:
 
-    pnpm install flags
+```bash
+npm install flags
+# or
+yarn add flags
+# or
+pnpm add flags
+```
 
-## Example
+## Usage
 
-    import * as flags from 'flags';
+Here's a quick example of how to use Node-Flags:
 
-    flags.defineString('name', 'Billy Noone', 'Your name');
-    flags.defineInteger('age', 21, 'Your age in whole years');
-    flags.defineNumber('height', 1.80, 'Your height in meters');
-    flags.defineStringList('pets', []);
-    flags.defineMultiString('hobby', []);
+```javascript
+import * as flags from "flags";
 
-    flags.parse();
+// Define flags
+flags.defineString("name", "Anonymous", "Your name");
+flags.defineInteger("age", 21, "Your age in years");
+flags.defineNumber("height", 1.8, "Your height in meters");
+flags.defineStringList("pets", [], "List of your pets");
+flags.defineMultiString("hobby", [], "Your hobbies");
 
-    // ====
+// Parse command-line arguments
+flags.parse();
 
-    var info = [];
-    info.push('Name : ' + flags.get('name'));
-    info.push('Age : ' + flags.get('age'));
-    info.push('Height : ' + flags.get('height') + '"');
-    info.push('Pets : ' + flags.get('pets').join(', '));
-    info.push('Hobbies : \n  ' + flags.get('hobby').join('\n  '));
+// Access flag values
+const info = [
+  `Name: ${flags.get("name")}`,
+  `Age: ${flags.get("age")}`,
+  `Height: ${flags.get("height")}m`,
+  `Pets: ${flags.get("pets").join(", ")}`,
+  `Hobbies:\n  ${flags.get("hobby").join("\n  ")}`,
+];
 
-    console.log(info.join('\n'));
+console.log(info.join("\n"));
+```
 
-Then on the command line:
+Run your script with flags:
 
-    node example.js --name='Your Name' --age 43  --height=1.234 --pets=fred,bob --hobby biking --hobby=snowboarding
-
-## Passing Flags
-
-- Flag names should be prefixed with two dashes: e.g. `--flagname`
-- Values can be separated from the name with either an equal sign or a space: e.g. `--flagname=flagvalue` or `--flagname flagvalue`
-- Complex string flags should be quoted: e.g. `--flag="some flag with spaces"`
-- Additional non-flag arguments can be passed by adding `--` before the subsequent args. The remaining args will be returned from `flags.parse()` as an array, e.g. `--one --two -- other stuff here`
+```bash
+node example.js --name="John Doe" --age=30 --height=1.75 --pets=dog,cat --hobby=reading --hobby=gaming
+```
 
 ## Defining Flags
 
-To define flags, use one of the defineX functions exported by the `flags` module:
+Node-Flags provides several methods to define flags:
 
-**flags.defineString** - Takes the raw input from the command line.
+- `defineString(name, defaultValue, description)`
+- `defineBoolean(name, defaultValue, description)`
+- `defineInteger(name, defaultValue, description)`
+- `defineNumber(name, defaultValue, description)`
+- `defineStringList(name, defaultValue, description)`
+- `defineMultiString(name, defaultValue, description)`
 
-**flags.defineBoolean** - Usually doesn't take a value, passing --flag will set the corresponding flag to true. Also supported are --noflag to set it to false and --flag=true or --flag=false or --flag=0 or --flag=1 or --flag=f or --flag=t
+Each method returns a `Flag` object that allows further configuration:
 
-**flags.defineInteger** - Must take a value and will be cast to a Number. Passing a non-integer arg will throw.
+```javascript
+flags
+  .defineString("api-key")
+  .setDefault("your-default-key")
+  .setDescription("API key for authentication")
+  .setValidator((value) => {
+    if (value.length < 10) {
+      throw new Error("API key must be at least 10 characters long");
+    }
+  })
+  .setSecret(true);
+```
 
-**flags.defineNumber** - Must take a value and will be cast to a number. Passing an arg that evaluates to NaN will throw.
+## Passing Flags
 
-**flags.defineStringList** - Takes a comma separated argument list and returns an array as it's value.
-
-**flags.defineMultiString** - Same as defineString but allows multiple flags to be passed. All values will be returned in an array.
-
-All the define methods take the same arguments:
-
-    flags.defineX(name, opt_default, opt_description);
-
-`name` - The flag's name.  
-`opt_default` - [optional] The default value if not specified on the command line.  
-`opt_description` - [optional] Description to show in the help text.
-
-The methods return a Flag object that exposes the following methods, for additional configuration:
-
-`flag.setDefault({*} defaultValue)` - Sets the flag's default value.  
-`flag.setDescription({string} description)` - Sets the flag's description field.  
-`flag.setValidator({function(string)} validator)` - Sets a function for validating the input, should throw if the input isn't valid.  
-`flag.setSecret({boolean} secret)` - If set to true then the flag won't show up in the help text.
-
-These setters return the flag instance so they can be chained:
-
-    flags.defineString('test').
-        setDefault('empty').
-        setDescription('A test flag').
-        setValidator(function(inp) {
-          if (inp.substr(0, 1) != 'e') {
-            throw Error('Flag must start with an "e"');
-          }
-        });
+- Use double dashes for flag names: `--flagname`
+- Separate values with an equal sign or space: `--flagname=value` or `--flagname value`
+- Quote complex string values: `--message="Hello, World!"`
+- Use `--` to separate flags from additional arguments: `--flag1 value1 -- arg1 arg2`
 
 ## Querying Flag Values
 
-A flag's value can be queried by either calling `flags.get('flagname')` or by querying the flags object directly `flags.FLAGS.flagname.get()`.
+Access flag values using `flags.get(flagName)` or `flags.FLAGS.flagName.get()`.
 
-The flag object also contains the following properties you may be interested in:
+Flag objects also provide properties like `name`, `defaultValue`, `currentValue`, and `isSet`.
 
-    flag.name
-    flag.defaultValue
-    flag.currentValue
-    flag.isSet
+## Help Text
+
+Node-Flags automatically generates help text. Access it by running your script with the `--help` flag.
 
 ## Testing
 
-By default `flags.parse` uses process.argv and slices off the first 2 elements. For tests you can pass a predefined set of arguments as an array:
+For testing, you can pass predefined arguments to `flags.parse()`:
 
-    flags.parse(['--flag', '--nofood', '--foo=bar']);
+```javascript
+flags.parse(["--flag1", "--noflag2", "--flag3=value"]);
+```
 
-If you want to change flags between test cases, you may call:
+Reset flags between test cases:
 
-    flags.reset();
+```javascript
+flags.reset();
+```
 
-## TODOs
+## License
 
-- Support --flagsfile
-- Support multi space separated flags, e.g. --files file1 file2 file3
-
-## Licence
-
-The MIT License (MIT)
-
-Copyright (c) 2011 Daniel Pupius
-
-Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
