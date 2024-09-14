@@ -7,7 +7,9 @@ interface IFlag<T> {
   validator?: (input: T | null) => boolean;
   isSecret: boolean;
   isSet: boolean;
+  isRequired: boolean;
   setDefault(defaultValue: T): this;
+  setRequired(required: boolean): this;
   setDescription(description: string): this;
   setValidator(validator: (input: T | null) => boolean): this;
   setSecret(isSecret: boolean): this;
@@ -218,6 +220,12 @@ export function parse(
     process.exit(0);
   }
 
+  Object.keys(FLAGS).forEach((key) => {
+    if (FLAGS[key].isRequired && !FLAGS[key].isSet) {
+      throwFlagParseError(args, -1, 'Missing required flag "--' + key + '"');
+    }
+  });
+
   return [];
 }
 
@@ -225,14 +233,15 @@ export function parse(
 let parseCalled = false;
 
 function throwFlagParseError(args: string[], i: number, msg: string): void {
-  const errorMsg =
-    "FLAG PARSING ERROR: " +
-    msg +
-    "\n  " +
-    args.join(" ") +
-    "\n " +
-    new Array(args.slice(0, i).join(" ").length + 2).join(" ") +
-    new Array(args[i].length + 1).join("^");
+  let errorMsg = "FLAG PARSING ERROR: " + msg;
+  if (i > -1) {
+    errorMsg +=
+      "\n " +
+      args.join(" ") +
+      "\n " +
+      new Array(args.slice(0, i).join(" ").length + 2).join(" ") +
+      new Array(args[i].length + 1).join("^");
+  }
 
   if (exitOnError) {
     console.error(errorMsg);
@@ -294,6 +303,7 @@ class Flag<T> implements IFlag<T> {
   validator?: (input: T | null) => boolean;
   isSecret: boolean;
   isSet: boolean;
+  isRequired: boolean;
 
   constructor(name: string, defaultValue: T, description?: string) {
     this.name = name;
@@ -302,11 +312,18 @@ class Flag<T> implements IFlag<T> {
     this.currentValue = null;
     this.isSecret = false;
     this.isSet = false;
+    this.isRequired = false;
   }
 
-  // Set a default value.
+  /** Set a default value. */
   setDefault(defaultValue: T): this {
     this.defaultValue = defaultValue;
+    return this;
+  }
+
+  /** Set whether this flag is required. */
+  setRequired(isRequired: boolean): this {
+    this.isRequired = isRequired;
     return this;
   }
 

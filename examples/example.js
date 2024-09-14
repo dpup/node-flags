@@ -23,6 +23,7 @@ flags.defineNumber("height", 1.8, "Your height in meters.");
 flags.defineStringList("pets", [], "Comma separated list of your pets.");
 flags.defineMultiString("hobby", ["chess", "tv"], "A hobby.");
 flags.defineBoolean("active", false, "Whether the user is active.");
+flags.defineString("required", undefined, "A required flag").setRequired(true);
 
 flags.parse();
 

@@ -211,3 +211,12 @@ test("testIsSet", (t) => {
   assert.strictEqual(true, flags.isSet("one"));
   assert.strictEqual(false, flags.isSet("two"));
 });
+
+test("testIsRequired", (t) => {
+  flags.reset();
+  flags.defineInteger("one", 1).setRequired(true);
+  flags.defineInteger("two", 2);
+  assert.throws(() => {
+    flags.parse(["--two=11"]);
+  });
+});
