@@ -1,6 +1,6 @@
 {
   "name": "flags",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Flag library for node.js",
   "type": "module",
   "main": "dist/index.js",
