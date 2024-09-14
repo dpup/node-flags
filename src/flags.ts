@@ -102,7 +102,7 @@ export function defineNumber(
 }
 
 /**
- * Defines a string list flag.  e.g. --anmial=frog,bat,chicken
+ * Defines a string list flag.  e.g. --animal=frog,bat,chicken
  */
 export function defineStringList(
   name: string,
