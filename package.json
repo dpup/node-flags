@@ -3,8 +3,8 @@
   "version": "0.2.1",
   "description": "Flag library for node.js",
   "type": "module",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "main": "dist/flags.js",
+  "types": "dist/flags.d.ts",
   "files": [
     "/dist"
   ],
