@@ -2,7 +2,7 @@
 
 A flexible and easy-to-use command-line flag parsing library for Node.js applications.
 
-[![npm version](https://badge.fury.io/js/flags.svg)](https://badge.fury.io/js/flags)
+[![npm version](https://badge.fury.io/js/flg.svg)](https://badge.fury.io/js/flg)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 ## Features
@@ -18,11 +18,11 @@ A flexible and easy-to-use command-line flag parsing library for Node.js applica
 Install using your favorite package manager:
 
 ```bash
-npm install flags
+npm install flg
 # or
-yarn add flags
+yarn add flg
 # or
-pnpm add flags
+pnpm add flg
 ```
 
 ## Usage
@@ -30,7 +30,7 @@ pnpm add flags
 Here's a quick example of how to use Node-Flags:
 
 ```javascript
-import * as flags from "flags";
+import * as flags from "flg";
 
 // Define flags
 flags.defineString("name", "Anonymous", "Your name");
