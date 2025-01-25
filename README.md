@@ -161,10 +161,11 @@ To upgrade your project to use the new `flg` package:
 
 The new versioning starts from `3.0.0` to reflect the continuity of the `flags` package while aligning with semantic versioning best practices.
 
-#### Release history under original name
+#### Release history
 
 | Version                                                    | Date                     |
 | ---------------------------------------------------------- | ------------------------ |
+| [flg@3.0.0](https://www.npmjs.com/package/flg/v/3.0.0)     | _New name going forward_ |
 | [flags@0.2.2](https://www.npmjs.com/package/flags/v/0.2.2) | 2024-09-16T17:32:20.498Z |
 | [flags@0.2.1](https://www.npmjs.com/package/flags/v/0.2.1) | 2024-09-14T00:38:28.225Z |
 | [flags@0.2.0](https://www.npmjs.com/package/flags/v/0.2.0) | 2024-09-13T23:04:51.567Z |
