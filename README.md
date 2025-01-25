@@ -25,6 +25,14 @@ yarn add flg
 pnpm add flg
 ```
 
+> ⚠️ _**Important Notice**_: This npm package was formerly known as `flags` and has been renamed to `flg`. Starting from version `3.0.0`, all updates will be published under this new package name.
+>
+> Existing `flags` releases will be marked as deprecated.
+>
+> Migrate from `flags` to `flg` at your convenience to ensure you receive upcoming releases.
+>
+> _See [below](#package-name-update) for details and migration steps._
+
 ## Usage
 
 Here's a quick example of how to use Node-Flags:
@@ -116,6 +124,56 @@ Reset flags between test cases:
 ```javascript
 flags.reset();
 ```
+
+## Package name update
+
+The original release of `flags` version `0.2.2` has been republished as `flg` version `3.0.0`. This change was made to ensure consistency and avoid potential naming conflicts.
+
+All existing releases under the original `flags` name are still intact, so existing applications will not break.
+
+Migrate to `flg` to ensure you receive future releases.
+
+#### Migration Guide
+
+To upgrade your project to use the new `flg` package:
+
+1. Uninstall the old `flags` package:
+
+   ```bash
+    npm uninstall flags
+   ```
+
+2. Install the new `flg` package:
+
+   ```bash
+    npm install flg
+   ```
+
+3. Update all references in your code from `flags` to `flg`:
+
+   ```js
+   // before
+   import * as flags from "flags";
+
+   // after
+   import * as flags from "flg";
+   ```
+
+#### Versioning
+
+The new versioning starts from `3.0.0` to reflect the continuity of the `flags` package while aligning with semantic versioning best practices.
+
+#### Release history under original name
+
+| Version                                                    | Date                     |
+| ---------------------------------------------------------- | ------------------------ |
+| [flags@0.2.2](https://www.npmjs.com/package/flags/v/0.2.2) | 2024-09-16T17:32:20.498Z |
+| [flags@0.2.1](https://www.npmjs.com/package/flags/v/0.2.1) | 2024-09-14T00:38:28.225Z |
+| [flags@0.2.0](https://www.npmjs.com/package/flags/v/0.2.0) | 2024-09-13T23:04:51.567Z |
+| [flags@0.1.3](https://www.npmjs.com/package/flags/v/0.1.3) | 2015-02-27T02:29:55.285Z |
+| [flags@0.1.2](https://www.npmjs.com/package/flags/v/0.1.2) | 2014-04-18T01:55:57.093Z |
+| [flags@0.1.1](https://www.npmjs.com/package/flags/v/0.1.1) | 2011-11-02T19:53:15.783Z |
+| [flags@0.1.0](https://www.npmjs.com/package/flags/v/0.1.0) | 2011-04-04T14:58:55.383Z |
 
 ## License
 
