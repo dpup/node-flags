@@ -27,9 +27,7 @@ pnpm add flg
 
 > ⚠️ _**Important Notice**_: This npm package was formerly known as `flags` and has been renamed to `flg`. Starting from version `3.0.0`, all updates will be published under this new package name.
 >
-> Existing `flags` releases will be marked as deprecated.
->
-> Migrate from `flags` to `flg` at your convenience to ensure you receive upcoming releases.
+> Migrate from `flags` to `flg` at your convenience to ensure you receive upcoming releases and avoid the deprecation notice of the previous name.
 >
 > _See [below](#package-name-update) for details and migration steps._
 
