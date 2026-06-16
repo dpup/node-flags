@@ -10,8 +10,8 @@ export default tseslint.config(
   {
     languageOptions: {
       parserOptions: {
-        project: true,
-        tsconfigRootDir: "./src/",
+        project: ["./tsconfig.eslint.json"],
+        tsconfigRootDir: import.meta.dirname,
       },
     },
   },
@@ -22,6 +22,7 @@ export default tseslint.config(
       "jest.config.ts",
       "dist/",
       "node_modules/",
+      "examples/",
     ],
   },
   {
@@ -30,6 +31,14 @@ export default tseslint.config(
         "error",
         { argsIgnorePattern: "^_" },
       ],
+    },
+  },
+  {
+    // The node:test runner collects top-level test() calls; they are not meant
+    // to be awaited, so the floating-promise check is a false positive here.
+    files: ["tests/**/*.ts"],
+    rules: {
+      "@typescript-eslint/no-floating-promises": "off",
     },
   }
 );

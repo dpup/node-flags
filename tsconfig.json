@@ -4,6 +4,7 @@
     "useDefineForClassFields": true,
     "lib": ["ES2020", "DOM"],
     "module": "esnext",
+    "types": ["node"],
 
     /* Strict Type-Checking Options */
     "strict": true, // Enable all strict type-checking options
@@ -21,7 +22,7 @@
     "noFallthroughCasesInSwitch": true, // Report errors for fallthrough cases in switch statement
 
     /* Module Resolution Options */
-    "moduleResolution": "node", // Choose a module resolution strategy: 'node' or 'classic'
+    "moduleResolution": "bundler", // Module resolution strategy suited to bundlers (tsup)
     "esModuleInterop": true, // Enables emit interoperability between CommonJS and ES Modules via creation of namespace objects for all imports
     "resolveJsonModule": true, // Include modules imported with '.json' extension
     "forceConsistentCasingInFileNames": true, // Disallow inconsistently-cased references to the same file
@@ -29,6 +30,7 @@
     /* Other Options */
     "skipLibCheck": true, // Skip type checking of declaration files
     "incremental": false, // Disable incremental compilation
+    "ignoreDeprecations": "6.0", // Silence TS6 deprecations (e.g. baseUrl injected by tsup's dts build)
     "jsx": "react" // Enable JSX syntax
   },
   "include": ["src/*"],

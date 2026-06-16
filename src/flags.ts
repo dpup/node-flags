@@ -19,16 +19,23 @@ interface IFlag<T> {
   toHelpString(): string;
 }
 
+// The global map holds flags with heterogeneous value types. IFlag<T> uses T
+// invariantly (e.g. set(input: T)), so a single concrete type parameter such as
+// `unknown` can't accept a Flag<string> and a Flag<boolean> alike; `any` is the
+// deliberate choice for this container.
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type AnyFlag = IFlag<any>;
+
 // Define the global flags object
 declare global {
-  var GLOBAL_FLAGS: { [key: string]: IFlag<any> };
+  var GLOBAL_FLAGS: Record<string, AnyFlag>;
 }
 
 if (typeof global.GLOBAL_FLAGS === "undefined") {
   global.GLOBAL_FLAGS = {};
 }
 
-const FLAGS: { [key: string]: IFlag<any> } = global.GLOBAL_FLAGS;
+const FLAGS: Record<string, AnyFlag> = global.GLOBAL_FLAGS;
 
 /**
  * An object containing a map of flag objects.  If different modules are
@@ -182,7 +189,7 @@ export function parse(
     } else if (arg.startsWith("--")) {
       let flag = arg.slice(2);
       let value: string | null = null;
-      if (flag.indexOf("=") > -1) {
+      if (flag.includes("=")) {
         const parts = flag.split("=");
         flag = parts[0];
         value = parts.slice(1).join("=");
@@ -483,7 +490,7 @@ class MultiStringFlag extends Flag<string[]> implements IFlag<string[]> {
 
   set(input: string[]): void {
     if (this.validator) this.validator(input);
-    if (!this.currentValue) this.currentValue = [];
+    this.currentValue ??= [];
     this.currentValue.push(...input);
     this.isSet = true;
   }

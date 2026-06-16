@@ -5,13 +5,13 @@ import * as flags from "../src/flags";
 
 flags.setExitOnError(false);
 
-test("testGlobalFlagsObject", (t) => {
+test("testGlobalFlagsObject", () => {
   flags.defineString("one", "111");
   flags.defineString("two", "222");
   assert.deepEqual(global.GLOBAL_FLAGS, flags.FLAGS);
 });
 
-test("testStringFlagParsing", (t) => {
+test("testStringFlagParsing", () => {
   flags.reset();
   flags.defineString("one", "111");
   flags.defineString("two", "222");
@@ -27,7 +27,7 @@ test("testStringFlagParsing", (t) => {
   assert.ok(flags.FLAGS.three.isSet === false);
 });
 
-test("testStringFlagParsing_noValue", (t) => {
+test("testStringFlagParsing_noValue", () => {
   flags.reset();
   flags.defineString("one", "111");
   assert.throws(() => {
@@ -35,7 +35,7 @@ test("testStringFlagParsing_noValue", (t) => {
   });
 });
 
-test("testStringFlagParsingWithSpaces", (t) => {
+test("testStringFlagParsingWithSpaces", () => {
   flags.reset();
   flags.defineString("one", "111");
   flags.defineString("two", "222");
@@ -44,7 +44,7 @@ test("testStringFlagParsingWithSpaces", (t) => {
   assert.strictEqual("bbb", flags.get("two"));
 });
 
-test("testIntegerFlagParsing", (t) => {
+test("testIntegerFlagParsing", () => {
   flags.reset();
   flags.defineInteger("one", 11);
   flags.defineInteger("two", 22);
@@ -53,7 +53,7 @@ test("testIntegerFlagParsing", (t) => {
   assert.strictEqual(22, flags.get("two"));
 });
 
-test("testIntegerFlagParsing_stringInput", (t) => {
+test("testIntegerFlagParsing_stringInput", () => {
   flags.reset();
   flags.defineInteger("one", 11);
   assert.throws(() => {
@@ -61,7 +61,7 @@ test("testIntegerFlagParsing_stringInput", (t) => {
   });
 });
 
-test("testIntegerFlagParsing_nonIntInput", (t) => {
+test("testIntegerFlagParsing_nonIntInput", () => {
   flags.reset();
   flags.defineInteger("one", 11);
   assert.throws(() => {
@@ -69,7 +69,7 @@ test("testIntegerFlagParsing_nonIntInput", (t) => {
   });
 });
 
-test("testNumberFlagParsing", (t) => {
+test("testNumberFlagParsing", () => {
   flags.reset();
   flags.defineNumber("one", 1.1);
   flags.defineNumber("two", 2.2);
@@ -78,7 +78,7 @@ test("testNumberFlagParsing", (t) => {
   assert.strictEqual(2.2, flags.get("two"));
 });
 
-test("testNumberFlagParsing_stringInput", (t) => {
+test("testNumberFlagParsing_stringInput", () => {
   flags.reset();
   flags.defineNumber("one", 1.1);
   assert.throws(() => {
@@ -86,7 +86,7 @@ test("testNumberFlagParsing_stringInput", (t) => {
   });
 });
 
-test("testBooleanFlagParsing", (t) => {
+test("testBooleanFlagParsing", () => {
   flags.reset();
   flags.defineBoolean("a");
   flags.defineBoolean("b", false);
@@ -118,7 +118,7 @@ test("testBooleanFlagParsing", (t) => {
   assert.strictEqual(false, flags.get("i"), 'flags.get("i")');
 });
 
-test("testBooleanFlagParsing_badInput", (t) => {
+test("testBooleanFlagParsing_badInput", () => {
   flags.reset();
   flags.defineBoolean("a", false);
   assert.throws(() => {
@@ -126,28 +126,28 @@ test("testBooleanFlagParsing_badInput", (t) => {
   });
 });
 
-test("testStringListFlagParsing", (t) => {
+test("testStringListFlagParsing", () => {
   flags.reset();
   flags.defineStringList("one", []);
   flags.parse(["--one=a,b,c,d"]);
   assert.deepEqual(["a", "b", "c", "d"], flags.get("one"));
 });
 
-test("testMultiStringFlagParsing", (t) => {
+test("testMultiStringFlagParsing", () => {
   flags.reset();
   flags.defineMultiString("one", []);
   flags.parse(["--one=a", "--one=b", "--one=c", "--one=d"]);
   assert.deepEqual(["a", "b", "c", "d"], flags.get("one"));
 });
 
-test("testUnrecognizedFlags", (t) => {
+test("testUnrecognizedFlags", () => {
   flags.reset();
   assert.throws(() => {
     flags.parse(["--one"]);
   });
 });
 
-test("testDuplicateFlags", (t) => {
+test("testDuplicateFlags", () => {
   flags.reset();
   flags.defineString("one", "");
   assert.throws(() => {
@@ -155,7 +155,7 @@ test("testDuplicateFlags", (t) => {
   });
 });
 
-test("testThrowIfDefineAfterParse", (t) => {
+test("testThrowIfDefineAfterParse", () => {
   flags.reset();
   flags.parse([]);
   assert.throws(() => {
@@ -163,7 +163,7 @@ test("testThrowIfDefineAfterParse", (t) => {
   });
 });
 
-test("testValidators", (t) => {
+test("testValidators", () => {
   function setUp() {
     flags.reset();
     flags.defineString("one").setValidator(function (inp) {
@@ -179,31 +179,31 @@ test("testValidators", (t) => {
   });
 });
 
-test("testBreakFlag", (t) => {
+test("testBreakFlag", () => {
   flags.reset();
   flags.defineString("one", "");
   flags.defineString("two", "");
-  let rv = flags.parse(["--one=2", "--two=3", "--", "something", "else"]);
+  const rv = flags.parse(["--one=2", "--two=3", "--", "something", "else"]);
   assert.deepEqual(["something", "else"], rv);
 });
 
-test("testBreakFlag_nothingElse", (t) => {
+test("testBreakFlag_nothingElse", () => {
   flags.reset();
   flags.defineString("one", "");
   flags.defineString("two", "");
-  let rv = flags.parse(["--one=2", "--two=3", "--"]);
+  const rv = flags.parse(["--one=2", "--two=3", "--"]);
   assert.deepEqual([], rv);
 });
 
-test("testReturnValue", (t) => {
+test("testReturnValue", () => {
   flags.reset();
   flags.defineString("one", "");
   flags.defineString("two", "");
-  let rv = flags.parse(["--one=2", "--two=3"]);
+  const rv = flags.parse(["--one=2", "--two=3"]);
   assert.deepEqual([], rv);
 });
 
-test("testIsSet", (t) => {
+test("testIsSet", () => {
   flags.reset();
   flags.defineInteger("one", 1);
   flags.defineInteger("two", 2);
@@ -212,7 +212,7 @@ test("testIsSet", (t) => {
   assert.strictEqual(false, flags.isSet("two"));
 });
 
-test("testIsRequired", (t) => {
+test("testIsRequired", () => {
   flags.reset();
   flags.defineInteger("one", 1).setRequired(true);
   flags.defineInteger("two", 2);
